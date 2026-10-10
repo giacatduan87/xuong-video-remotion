@@ -29,13 +29,14 @@ Trình cài tự tải Node.js, FFmpeg và Python 3.12 nếu máy chưa có.
 
 ## Cài đặt
 
-Mở **PowerShell** (bấm `⊞ Win`, gõ `powershell`, Enter) rồi dán nguyên dòng này:
+### Cách 1 — tải về rồi bấm đúp (dễ nhất, khuyên dùng)
 
-```powershell
-$p="$env:TEMP\cai.ps1"; iwr -UseBasicParsing https://raw.githubusercontent.com/giacatduan87/xuong-video-remotion/main/cai.ps1 -OutFile $p; & $p
-```
+1. Ở đầu trang này, bấm nút xanh **`Code`** → **`Download ZIP`** (khoảng 15 MB).
+2. Giải nén ra một thư mục **không dấu tiếng Việt**, ví dụ `C:\tam`.
+   *(Chuột phải vào file nén → `Extract All…`)*
+3. Bấm đúp **`CAI-DAT.bat`**.
 
-Trình cài sẽ hỏi 4 câu:
+Rồi trả lời 4 câu:
 
 1. **Mật khẩu khóa học** — nhập mật khẩu bạn được cấp.
 2. Thư mục cài đặt — bấm **Enter** để dùng `C:\REMOTION`.
@@ -44,7 +45,22 @@ Trình cài sẽ hỏi 4 câu:
 
 Rồi để đó. Lần đầu mất **20–40 phút** vì phải tải Node.js, FFmpeg, Remotion, Whisper và Python.
 
+> ⚠️ Phải **giải nén trước** khi bấm đúp. Bấm đúp file `.bat` ngay trong file nén sẽ lỗi, vì Windows chỉ mở tạm một file lẻ mà thiếu `goi.enc` bên cạnh.
+
 Trong lúc chạy, Windows có thể hiện cửa sổ **UAC** xin quyền để cài Node.js — bấm **Yes**.
+
+### Cách 2 — một lệnh PowerShell
+
+Mở **PowerShell** (bấm `⊞ Win`, gõ `powershell`, Enter) rồi dán nguyên dòng này:
+
+```powershell
+$p = Join-Path $env:TEMP 'cai.ps1'; iwr -UseBasicParsing https://raw.githubusercontent.com/giacatduan87/xuong-video-remotion/main/cai.ps1 -OutFile $p; powershell -NoProfile -ExecutionPolicy Bypass -File $p
+```
+
+Rồi trả lời 4 câu như trên.
+
+> Dán **nguyên dòng**, đừng cắt bớt phần `-ExecutionPolicy Bypass`. Windows mặc định **chặn chạy file script**, thiếu phần đó sẽ báo
+> `cai.ps1 cannot be loaded because running scripts is disabled on this system`.
 
 ### Nhờ Claude Code cài hộ
 
@@ -56,10 +72,10 @@ Nếu bạn đã có Claude Code, có thể nhờ nó cài thay vì tự gõ. M�
 
 ### Chạy không cần trả lời câu nào
 
-Nếu muốn cài sẵn mọi thứ theo mặc định, truyền mật khẩu vào thẳng lệnh:
+Truyền mật khẩu vào thẳng lệnh, nó lấy hết giá trị mặc định:
 
 ```powershell
-$p="$env:TEMP\cai.ps1"; iwr -UseBasicParsing https://raw.githubusercontent.com/giacatduan87/xuong-video-remotion/main/cai.ps1 -OutFile $p; & powershell -NoProfile -ExecutionPolicy Bypass -File $p -MatKhau 'MAT-KHAU-CUA-BAN' -KhongHoi
+$p = Join-Path $env:TEMP 'cai.ps1'; iwr -UseBasicParsing https://raw.githubusercontent.com/giacatduan87/xuong-video-remotion/main/cai.ps1 -OutFile $p; powershell -NoProfile -ExecutionPolicy Bypass -File $p -MatKhau 'MAT-KHAU-CUA-BAN' -KhongHoi
 ```
 
 Các tham số có thể thêm:
@@ -101,7 +117,9 @@ Dự án nằm ở `C:\REMOTION`:
 
 | Thông báo | Cách xử lý |
 |---|---|
+| `running scripts is disabled on this system` | Windows chặn chạy script. Dùng **Cách 1** (tải ZIP, bấm đúp `CAI-DAT.bat`), hoặc dán lại lệnh ở Cách 2 cho đủ cả phần `-ExecutionPolicy Bypass`. |
 | `MAT KHAU SAI` | Mật khẩu khóa học chưa đúng. Chú ý chữ hoa chữ thường và dấu gạch ngang. Hỏi lại nơi bạn mua khóa học. |
+| `Chua nhap mat khau khoa hoc` | Bạn bấm Enter khi nó hỏi mật khẩu, hoặc đang chạy tự động. Chạy lại và nhập mật khẩu, hoặc thêm `-MatKhau 'mat-khau' -KhongHoi` vào lệnh. |
 | `Khong tai duoc goi cai` | Mất mạng hoặc GitHub chặn tạm. Chờ vài phút rồi chạy lại. |
 | `Duong dan co dau tieng Viet` | Thư mục cài phải không dấu. Dùng `C:\REMOTION`. |
 | `Thu muc C:\REMOTION da co du lieu` | Đã cài lần trước. Đổi tên thư mục cũ thành `C:\REMOTION-cu` rồi chạy lại. |
@@ -117,7 +135,8 @@ Trình cài **không ghi đè**: file trùng tên được sao lưu thành `.bak
 
 | File | Là gì |
 |---|---|
-| `cai.ps1` | Trình cài: tải gói, mở khóa bằng mật khẩu, cài cả 4 bộ. Đọc được, không có gì che giấu. |
+| `CAI-DAT.bat` | Bấm đúp là cài. Tự gọi `cai.ps1` với quyền chạy script, nên không vướng chặn của Windows. |
+| `cai.ps1` | Trình cài: mở khóa gói bằng mật khẩu rồi cài cả 4 bộ. Đọc được, không có gì che giấu. |
 | `goi.enc` | Ruột gói cài (4 bộ, 225 file), khóa bằng AES-256. Không có mật khẩu thì không mở được. |
 
 ---

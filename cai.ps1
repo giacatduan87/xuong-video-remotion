@@ -82,7 +82,11 @@ while ($true) {
     if ($KhongHoi) { Loi "Chua co mat khau khoa hoc. Chay lai voi tham so -MatKhau 'mat-khau-cua-ban'." }
     Write-Host ""
     $MatKhau = Read-Host "Nhap MAT KHAU KHOA HOC de mo goi cai"
-    if (-not $MatKhau) { Loi "Khong co mat khau thi khong mo duoc goi cai. Hoi lai noi ban mua khoa hoc." }
+    if (-not $MatKhau) {
+      Loi ("Chua nhap mat khau khoa hoc.`n" +
+           "       Neu dang chay tu dong (khong go tay duoc), hay truyen mat khau vao lenh:`n" +
+           "         -MatKhau 'mat-khau-khoa-hoc' -KhongHoi")
+    }
   }
 
   Write-Host "Dang mo khoa..."
