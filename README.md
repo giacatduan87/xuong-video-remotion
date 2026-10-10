@@ -90,6 +90,36 @@ Các tham số có thể thêm:
 
 ---
 
+## Kiểm tra đã cài xong chưa
+
+Bấm đúp **`KIEM-TRA.bat`** (nằm cùng chỗ với `CAI-DAT.bat`). Nó in ra bảng rồi kết luận:
+
+```
+SKILL CHO CLAUDE CODE
+  [ DU   ] remotion-cinematic-editor
+  [ DU   ] remotion-keyword-phong-cach
+  [ DU   ] remotion-giong-doc
+  [ DU   ] remotion-truoc-sau
+======================================================================
+  CAI THANH CONG. Remotion 4.0.530
+```
+
+Cách đọc bảng:
+
+| Dấu | Nghĩa |
+|---|---|
+| `[ DU   ]` | Xong |
+| `[ chua ]` | Phần tải nặng chưa về — **không sao**, lần đầu dùng nó tự tải |
+| `[THIEU ]` | Thiếu thật, nó ghi kèm cách sửa ngay bên cạnh |
+
+Thiếu nhiều thì cách nhanh nhất là đổi tên `C:\REMOTION` thành `C:\REMOTION-cu` rồi chạy lại `CAI-DAT.bat`.
+
+Nếu thấy `KHONG THAY DU AN` mà bạn đã cài vào thư mục khác, chạy `KIEM-TRA.bat -ThuMuc D:\duong-dan-cua-ban`.
+
+**Cách kiểm nhanh không cần file nào:** bấm đúp `C:\REMOTION\MO-STUDIO.bat`. Chờ khoảng 30 giây, một cửa sổ trình duyệt mở ra, bên trái có danh sách video mẫu → xong.
+
+---
+
 ## Cài xong thì dùng thế nào
 
 Dự án nằm ở `C:\REMOTION`:
@@ -136,7 +166,9 @@ Trình cài **không ghi đè**: file trùng tên được sao lưu thành `.bak
 | File | Là gì |
 |---|---|
 | `CAI-DAT.bat` | Bấm đúp là cài. Tự gọi `cai.ps1` với quyền chạy script, nên không vướng chặn của Windows. |
+| `KIEM-TRA.bat` | Bấm đúp để xem đã cài xong chưa. Chỉ đọc và báo cáo, không sửa gì. |
 | `cai.ps1` | Trình cài: mở khóa gói bằng mật khẩu rồi cài cả 4 bộ. Đọc được, không có gì che giấu. |
+| `kiem-tra.ps1` | Phần việc thật của `KIEM-TRA.bat`. |
 | `goi.enc` | Ruột gói cài (4 bộ, 225 file), khóa bằng AES-256. Không có mật khẩu thì không mở được. |
 
 ---
