@@ -92,7 +92,7 @@ $root = Join-Path $ThuMuc "src\Root.tsx"
 $noiRoot = ""
 if (Test-Path $root) { $noiRoot = [IO.File]::ReadAllText($root, [Text.Encoding]::UTF8) }
 Muc "Muc PhongCach-BoSuuTap" ($noiRoot -match "PhongCach-BoSuuTap") $false "noi voi Claude: 'dang ky bo suu tap keyword vao Root'"
-Muc "Muc TruocSau"           ($noiRoot -match 'id="TruocSau"') $false "noi voi Claude: 'dang ky video truoc sau vao Root'"
+Muc "Muc TruocSau"           ($noiRoot -match 'id="TruocSau"') $false "binh thuong - chi hien khi ban lam video truoc/sau dau tien"
 
 # ---------- 6. Skill cho Claude Code ----------
 Write-Host ""
